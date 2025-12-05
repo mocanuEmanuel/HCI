@@ -4,6 +4,18 @@ using HCI.AIAssistant.API.Services;
 using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: "CORS",
+    policy =>
+    {
+        policy
+        .AllowAnyHeader()
+        .AllowAnyMethod()
+        .AllowAnyOrigin();
+    });
+});
+
 
 var keyVaultName = builder.Configuration
   [$"AppConfigurations{ConfigurationPath.KeyDelimiter}KeyVaultName"];
@@ -46,6 +58,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
+
+app.UseCors("CORS");
 
 // Configure the HTTP request pipeline.
 // if (app.Environment.IsDevelopment())
