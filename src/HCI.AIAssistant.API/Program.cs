@@ -49,6 +49,7 @@ builder.Services.AddSingleton<IAppConfigurationsService>(
     provider => provider.GetRequiredService<IOptions<AppConfigurationsService>>().Value
 );
 builder.Services.AddSingleton<IParametricFunctions, ParametricFunctions>();
+builder.Services.AddSingleton<IAIAssistantService, AIAssistantService>();
 
 // Add services to the container.
 
@@ -84,5 +85,7 @@ Console.WriteLine(app.Services.GetService<ISecretsService>()?.IoTHubSecrets?.Con
 Console.WriteLine(app.Services.GetService<IAppConfigurationsService>()?.KeyVaultName);
 Console.WriteLine(app.Services.GetService<IAppConfigurationsService>()?.SecretsPrefix);
 Console.WriteLine(app.Services.GetService<IAppConfigurationsService>()?.IoTDeviceName);
+Console.WriteLine(app.Services.GetService<IAppConfigurationsService>()?.Instruction);
+
 
 app.Run();
